@@ -9,8 +9,18 @@ public class Point {
     // contains all points with positive x but negative y. If the point lies
     // directly on the x and/or y axis, return 0
 
-    private static int quadrant(int x, int y){
-        return x;
+    private static int quadrant(int x, int y) {
+        if (x > 0 && y > 0) {
+            return 1;
+        } else if (x < 0 && y > 0) {
+            return 2;
+        } else if (x < 0 && y < 0) {
+            return 3;
+        } else if (x > 0 && y < 0) {
+            return 4;
+        } else {
+            return 0;
+        }
     }
 
     // Write a method flip that negates and swaps the x/y coordinates of the Point
@@ -19,9 +29,10 @@ public class Point {
     // initially represents the point (4, 17), after a call to flip, the object
     // should represent (-17, -4).
 
-    private static int[] flip(int x, int y) {
-        int[] flipped = {x * -1, y * -1};
-        return flipped;
+    public void flip() {
+        int temp = this.x;
+        this.x = -this.y;
+        this.y = -temp;
     }
 
     // Write a method manhattanDistance that accepts another Point object and
@@ -33,13 +44,32 @@ public class Point {
     // coordinates; in other words, the difference in x plus the difference in y
     // between the points.
 
-    // Write a method isVertical that accepts another Point object and returns true
-    // if the given Point lines up vertically with this Point; that is, if their x
-    // coordinates are the same.
+    public int manhattanDistance(Point obj) {
+        return (this.x + this.y) + (obj.x + obj.y);
+    }
 
     // Write a method isVertical that accepts another Point object and returns true
     // if the given Point lines up vertically with this Point; that is, if their x
     // coordinates are the same.
+
+    public boolean isVertical(Point obj) {
+        if (this.x == obj.x) {
+            return true;
+        }
+        return false;
+    }
+
+    // Write a method slope that accepts another Point object and returns the slope
+    // of the line drawn between this Point and the given other Point. Use the
+    // formula (y2 - y1) / (x2 - x1) to determine the slope between two points (x1,
+    // y1) and (x2, y2). Note that this formula fails for points with identical
+    // x-coordinates, so throw an IllegalArgumentException in this case.
+    
+
+    public double slope(Point obj) throws IllegalArgumentException {
+        double value = (obj.y - this.y)/(obj.x - this.x);
+        return value;
+    }
 
     // Write a method isCollinear that accepts two Point objects and returns whether
     // this Point is collinear with the given two other points. Points are collinear
@@ -54,4 +84,14 @@ public class Point {
     // reasonable accuracy such as four digits past the decimal point before you
     // compare them.
 
+    public boolean isCollinear(Point objOne, Point objTwo) {
+        double slopeOne = this.slope(objOne);
+        double slopeTwo = this.slope(objTwo);
+        double slopeThree = (objTwo.y - objOne.y)/(objTwo.x - objOne.x);
+
+        if (slopeOne == slopeTwo && slopeTwo == slopeThree && slopeThree == slopeOne) {
+            return true;
+        }
+        return false;
+    }
 }
