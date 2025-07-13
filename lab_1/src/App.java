@@ -2,16 +2,13 @@ import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        int[] values = {1, -2, 4, -4, 9, -6, 16, -8, 25, -10};
-        double ans = average(values);
-        // System.out.println(ans);
-        String[] palStrings = {"alpha", "beta", "gamma", "delta", "gamma", "beta", "alpha"};
 
-        boolean bool = isPalindrome(palStrings);
-        System.out.println(bool);
-
+    Janitor emp = new Janitor();
+    System.out.println("Salary: " + emp.getSalary());
+    System.out.println("Hours: " + emp.getHours());
+    System.out.println("Vacation Days: " + emp.getVacationDays());
+    emp.clean();
     }
-
 
     private static double average(int[] values) {
         double sum = 0;
@@ -20,7 +17,7 @@ public class App {
             sum += i;
             total += 1;
         }
-        double avg = sum/total;
+        double avg = sum / total;
         return avg;
     }
 
@@ -38,4 +35,5 @@ public class App {
         }
         return bool;
     }
+
 }

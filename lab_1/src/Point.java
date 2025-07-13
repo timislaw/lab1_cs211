@@ -2,6 +2,16 @@ public class Point {
     private int x;
     private int y;
 
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+
+    public void getPoint() {
+        System.out.println("(" + this.x + ", " + this.y + ")");
+    }
     // Write a method quadrant that returns the quadrant of the x/y plane this Point
     // object falls in. Quadrant 1 contains all points whose x and y values are both
     // positive. Quadrant 2 contains all points with negative x but positive y.
@@ -9,14 +19,14 @@ public class Point {
     // contains all points with positive x but negative y. If the point lies
     // directly on the x and/or y axis, return 0
 
-    private static int quadrant(int x, int y) {
-        if (x > 0 && y > 0) {
+    public int quadrant() {
+        if (this.x > 0 && this.y > 0) {
             return 1;
-        } else if (x < 0 && y > 0) {
+        } else if (this.x < 0 && this.y > 0) {
             return 2;
-        } else if (x < 0 && y < 0) {
+        } else if (this.x < 0 && this.y < 0) {
             return 3;
-        } else if (x > 0 && y < 0) {
+        } else if (this.x > 0 && this.y < 0) {
             return 4;
         } else {
             return 0;
@@ -45,7 +55,7 @@ public class Point {
     // between the points.
 
     public int manhattanDistance(Point obj) {
-        return (this.x + this.y) + (obj.x + obj.y);
+        return Math.abs((obj.y - this.y)) + Math.abs((obj.x - this.x));
     }
 
     // Write a method isVertical that accepts another Point object and returns true
@@ -67,7 +77,11 @@ public class Point {
     
 
     public double slope(Point obj) throws IllegalArgumentException {
-        double value = (obj.y - this.y)/(obj.x - this.x);
+        double totalX = obj.x - this.x;
+        if (totalX == 0.00) {
+            throw new IllegalArgumentException();
+        }
+        double value = (obj.y - this.y)/totalX;
         return value;
     }
 
@@ -87,6 +101,10 @@ public class Point {
     public boolean isCollinear(Point objOne, Point objTwo) {
         double slopeOne = this.slope(objOne);
         double slopeTwo = this.slope(objTwo);
+        double totalX = objOne.x - objTwo.x;
+        if (totalX == 0.00) {
+            throw new IllegalArgumentException();
+        }
         double slopeThree = (objTwo.y - objOne.y)/(objTwo.x - objOne.x);
 
         if (slopeOne == slopeTwo && slopeTwo == slopeThree && slopeThree == slopeOne) {
